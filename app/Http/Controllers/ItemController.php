@@ -14,7 +14,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $items = Item::all();
+        return view('items.index', compact('items'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('items.create');
     }
 
     /**
@@ -35,7 +36,26 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'quantity' => 'required|integer',
+            'image' => 'required|mimes:jpeg,png|max:10240'
+        ]);        
+        // $data = $request->only('name', 'quantity');
+        $item = new Item;
+        $item->name = $request->name;
+        $item->quantity = $request->quantity;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $fileName = str_random(30).'.'.$image->guessClientExtension();
+            $image->move('upload/', $fileName);
+
+            $item->image = $fileName;
+        }
+
+        $item->save();
+        return redirect()->route('items.index');
     }
 
     /**
@@ -46,7 +66,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        return view('items.show', compact('item'));
     }
 
     /**
@@ -57,7 +77,7 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        return view('items.edit', compact('item'));
     }
 
     /**
@@ -69,7 +89,24 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'quantity' => 'required|integer',
+            'image' => 'required|mimes:jpeg,png|max:10240'
+        ]);
+        $item->name = $request->name;
+        $item->quantity = $request->quantity;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $fileName = str_random(30).'.'.$image->guessClientExtension();
+            $image->move('upload/', $fileName);
+
+            $item->image = $fileName;
+        }
+
+        $item->save();
+        return redirect()->route('items.index');
     }
 
     /**
@@ -80,6 +117,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+        return redirect()->route('items.index');
     }
 }
