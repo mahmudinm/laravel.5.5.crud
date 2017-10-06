@@ -9,7 +9,20 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <style>
+.modal-dialog {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
+.modal-content {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+}            
+    </style>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -37,7 +50,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="{{ route('items.index') }}">Items</a>
+                            <a href="{{ route('books.index') }}">Books</a>
                         </li>
                     </ul>
 
@@ -78,5 +91,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-2.2.0.js') }}"></script>
+    @yield('script')
 </body>
 </html>
