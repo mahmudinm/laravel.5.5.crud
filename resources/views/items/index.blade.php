@@ -4,6 +4,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+    
+            {!! Form::open(['url' => 'items', 'method'=>'get', 'class'=>'form-inline']) !!}
+                <div class="form-group {!! $errors->has('q') ? 'has-error' : '' !!}">
+                  {!! Form::text('q', isset($q) ?  : null, ['class'=>'form-control', 'placeholder' => 'Search...']) !!}
+                  {!! $errors->first('q', '<p class="help-block">:message</p>') !!}
+                </div>
+              {!! Form::submit('Search', ['class'=>'btn btn-primary']) !!}
+            {!! Form::close() !!}
+            
+            <br>
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                 	Dashboard
@@ -40,8 +51,10 @@
                                     </td>
                                 </tr>
                             @endforeach
-                		</tbody>
-                	</table>
+
+                        </tbody>
+                    </table>
+                    <div class="text-center">{{ $items->links() }}</div>
                 </div>
             </div>
         </div>

@@ -12,9 +12,10 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::all();
+        $q = $request->get('q');
+        $items = Item::where('name', 'LIKE', '%'.$q.'%')->orderBy('name')->paginate(10);
         return view('items.index', compact('items'));
     }
 
@@ -119,5 +120,13 @@ class ItemController extends Controller
     {
         $item->delete();
         return redirect()->route('items.index');
+    }
+
+
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+        $items = Item::where('name', 'LIKE', '%'.$q.'%')->orderBy('name')->paginate(10);
+        return view('items.index', compact('items'));
     }
 }
