@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-
-
 @section('content')
 
 
@@ -167,9 +165,6 @@
                 var html = $(".copy-field").html();
                 $("#newForm").after(html);
             });
-
-
-
         });
     </script>
 @endsection

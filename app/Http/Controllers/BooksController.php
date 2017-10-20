@@ -36,19 +36,37 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name[]' => 'required',
-            'quantity[]' => 'required|integer',
-            'price[]' => 'required|integer',
-            'total[]' => 'required|integer',
-            'ppn[]' => 'required|integer'
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required',
+        //     'quantity' => 'required|integer',
+        //     'price' => 'required|integer',
+        //     'total' => 'required|integer',
+        //     'ppn' => 'required|integer'
+        // ]);
 
-        dd($request->all());
+        // return dd($request->all());
+        $name = $request->name;
+        $quantity = $request->quantity;
+        $price = $request->price;
+        $total = $request->total;
+        $ppn = $request->ppn;
+
+        for ($i = 0; $i < count($name); $i++) {
+            $books = new Books;
+
+            $books->name = $name[$i];
+            $books->quantity = $quantity[$i];
+            $books->price = $price[$i];
+            $books->total = $total[$i];
+            $books->ppn = $ppn[$i];
+            
+            $books->save();
+
+        }
 
         // Books::create($request->all());
 
-        // return redirect()->route('books.index');
+        return redirect()->route('books.index');
     }
 
     /**
