@@ -38,6 +38,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li>
+                            <a href="{{ route('items.index') }}">Items</a>
+                        </li>
+                        <li>
                             <a href="{{ route('books.index') }}">Books</a>
                         </li>
                     </ul>

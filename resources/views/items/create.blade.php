@@ -14,19 +14,19 @@
                     
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             {!! Form::label('name', 'Name') !!}
-                            {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                            {!! Form::text('name', null, ['class' => 'form-control']) !!}
                             <small class="text-danger">{{ $errors->first('name') }}</small>
                         </div>
 
                         <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
                             {!! Form::label('quantity', 'Quantity') !!}
-                            {!! Form::text('quantity', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                            {!! Form::text('quantity', null, ['class' => 'form-control']) !!}
                             <small class="text-danger">{{ $errors->first('quantity') }}</small>
                         </div>
 
                         <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                             {!! Form::label('image', 'Image') !!}
-                            {!! Form::file('image', ['required' => 'required']) !!}
+                            {!! Form::file('image') !!}
                             <small class="text-danger">{{ $errors->first('image') }}</small>
                         </div>
                         

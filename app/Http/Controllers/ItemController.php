@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use Illuminate\Http\Request;
+use Validator;
+use File;
 
 class ItemController extends Controller
 {
@@ -17,6 +19,7 @@ class ItemController extends Controller
         $q = $request->get('q');
         $items = Item::where('name', 'LIKE', '%'.$q.'%')->orderBy('name')->paginate(10);
         return view('items.index', compact('items'));
+        // return response()->json()
     }
 
     /**
@@ -37,6 +40,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'name' => 'required',
             'quantity' => 'required|integer',
@@ -99,6 +103,12 @@ class ItemController extends Controller
         $item->quantity = $request->quantity;
 
         if ($request->hasFile('image')) {
+
+            $itemImage = public_path("upload/{$item->image}"); // get previous image from folder
+            if (File::exists($itemImage)) { // unlink or remove previous image from folder
+                unlink($itemImage);
+            }
+
             $image = $request->file('image');
             $fileName = str_random(30).'.'.$image->guessClientExtension();
             $image->move('upload/', $fileName);
